@@ -1,0 +1,92 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Foodie Express | Online Food Ordering</title>
+<style>
+*{box-sizing:border-box}
+body{margin:0;font-family:Arial,sans-serif;background:#fff8f0;color:#292929}
+header{background:#d84315;color:white;padding:22px 8%;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap}
+header h1{margin:0}
+nav a{color:white;margin:0 10px;text-decoration:none}
+.hero{text-align:center;padding:55px 20px;background:#ffe0b2}
+.hero h2{font-size:36px;margin:0 0 12px}
+.container{padding:30px 8%}
+.menu{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:20px}
+.card{background:white;padding:22px;border-radius:12px;box-shadow:0 3px 12px #ddd}
+.card .emoji{font-size:48px}
+.price{color:#d84315;font-weight:bold}
+button{background:#d84315;color:white;border:0;padding:10px 16px;border-radius:6px;cursor:pointer}
+button:hover{background:#a52c0b}
+.offer{background:#fff0d9;padding:20px;border-left:5px solid #d84315}
+footer{text-align:center;background:#292929;color:white;padding:22px}
+#cart{font-weight:bold}
+</style>
+</head>
+<body>
+<header>
+  <h1>🍔 Foodie Express</h1>
+  <nav><a href="#restaurants">Restaurants</a><a href="#menu">Menu</a><a href="#offers">Offers</a></nav>
+  <span id="cart">Cart: 0 items</span>
+</header>
+
+<section class="hero">
+  <h2>Delicious food, delivered fast!</h2>
+  <p>Explore your favourites and order from the comfort of home.</p>
+  <button onclick="document.getElementById('menu').scrollIntoView()">Explore Menu</button>
+</section>
+
+<section class="container" id="restaurants">
+  <h2>Popular Restaurants</h2>
+  <div class="menu">
+    <div class="card"><h3>Spice Garden</h3><p>Indian cuisine · ★ 4.5</p><p>Delivery: 25–35 min</p></div>
+    <div class="card"><h3>Pizza Corner</h3><p>Italian cuisine · ★ 4.6</p><p>Delivery: 20–30 min</p></div>
+    <div class="card"><h3>Green Bowl</h3><p>Healthy food · ★ 4.4</p><p>Delivery: 15–25 min</p></div>
+  </div>
+</section>
+
+<section class="container" id="menu">
+  <h2>Our Menu</h2>
+  <div class="menu">
+    <div class="card"><div class="emoji">🍕</div><h3>Margherita Pizza</h3><p>Classic cheese pizza</p><p class="price">₹199</p><button onclick="addToCart('Margherita Pizza',199)">Add to Cart</button></div>
+    <div class="card"><div class="emoji">🍔</div><h3>Veg Burger</h3><p>Crispy patty and fresh vegetables</p><p class="price">₹129</p><button onclick="addToCart('Veg Burger',129)">Add to Cart</button></div>
+    <div class="card"><div class="emoji">🍜</div><h3>Hakka Noodles</h3><p>Stir-fried noodles</p><p class="price">₹159</p><button onclick="addToCart('Hakka Noodles',159)">Add to Cart</button></div>
+    <div class="card"><div class="emoji">🥗</div><h3>Fresh Salad</h3><p>Fresh seasonal vegetables</p><p class="price">₹99</p><button onclick="addToCart('Fresh Salad',99)">Add to Cart</button></div>
+  </div>
+  <div class="card">
+    <h3>Order Summary</h3>
+    <p id="items">No items added yet.</p>
+    <p id="total">Total: ₹0</p>
+    <button onclick="checkout()">Place Order</button>
+    <p id="message" role="status"></p>
+  </div>
+</section>
+
+<section class="container" id="offers">
+  <div class="offer"><h2>Special Offers</h2><p>Save 20% on your next order. Fresh food and great deals every day!</p></div>
+</section>
+
+<section class="container">
+  <div class="card"><h2>Customer Rating</h2><p>Foodie Express makes ordering your favourite meals simple and convenient.</p><p>Overall rating: ★★★★★</p></div>
+</section>
+
+<footer><p>© 2026 Foodie Express | Fresh food, happy moments!</p></footer>
+
+<script>
+const cart = [];
+function addToCart(name, price) {
+  cart.push({name, price});
+  document.getElementById('cart').textContent = 'Cart: ' + cart.length + ' items';
+  document.getElementById('items').textContent = cart.map(x => x.name + ' - ₹' + x.price).join(', ');
+  document.getElementById('total').textContent = 'Total: ₹' + cart.reduce((sum, x) => sum + x.price, 0);
+  document.getElementById('message').textContent = '';
+}
+function checkout() {
+  document.getElementById('message').textContent =
+    cart.length ? 'Thank you! Your demo order has been placed.' : 'Please add an item first.';
+}
+</script>
+</body>
+</html>
